@@ -207,6 +207,7 @@ def convert_to_tpm(dataframe):
         total_counts = dataframe[column].sum()
         if total_counts != 1000000:
             dataframe[column] = (dataframe[column] / total_counts) * 1000000
+        dataframe = dataframe.rename({column: column+'_tpm'}, axis=1)
     return dataframe
 
 
@@ -259,6 +260,10 @@ def trap_analysis(sample1_group1_IN: list, sample2_group1_IP: list,
 
     # Check and convert to TPM's
     tpm_dataframe = convert_to_tpm(tpm_dataframe)
+    sample1_group1_IN = [i+'_tpm' for i in sample1_group1_IN]
+    sample2_group1_IP = [i+'_tpm' for i in sample2_group1_IP]
+    sample1_group2_IN = [i+'_tpm' for i in sample1_group2_IN]
+    sample2_group2_IP = [i+'_tpm' for i in sample2_group2_IP]
 
     gene_name = ['Gene Name']
     sample1_columns = sample1_group1_IN + sample1_group2_IN
