@@ -101,8 +101,8 @@ def plot_heatmaps(plots_list, plot_name_list, counter, filepath):
         counter += 1
         m = px.imshow(heatmp.corr(), color_continuous_scale="viridis", aspect=True)
         m.update_layout(title="Heatmap for {}".format(dend_name))
-        heatmap_html_path = f"{filepath}/{counter}_heatmap_{dend_name}_tpm.html"
-        heatmap_pdf_path = f"{filepath}/{counter}_heatmap_{dend_name}_tpm.pdf"
+        heatmap_html_path = f"{filepath}/{counter}_correlation_heatmap_{dend_name}_tpm.html"
+        heatmap_pdf_path = f"{filepath}/{counter}_correlation_heatmap_{dend_name}_tpm.pdf"
         my_logger.info("Heatmap is saved to {}".format(heatmap_html_path))
         m.write_html(heatmap_html_path)
         m.write_image(heatmap_pdf_path)
@@ -727,13 +727,13 @@ def trap_analysis(sample1_group1_IN: list, sample2_group1_IP: list,
 
     # generate heatmap post qn
     counter = counter + 1
-    m = px.imshow(tpm_percentile_qn_IN_and_IP_dataframe[sample1_qn_columns+sample2_qn_columns].corr(),
+    m = px.imshow(tpm_percentile_qn_IN_and_IP_dataframe_rev_de_filter[sample1_qn_columns+sample2_qn_columns].corr(),
                   color_continuous_scale="viridis", aspect=True)
     m.update_layout(title="Heatmap for {}".format('QN Corr Matrix'))
-    m.write_html(filepath + os.sep + '{}_heatmap_qn'.format(counter) + '_tpm.html')
-    m.write_image(filepath + os.sep + '{}_heatmap_qn'.format(counter) + '_tpm.pdf')
+    m.write_html(filepath + os.sep + '{}_correlation_heatmap_qn'.format(counter) + '_tpm.html')
+    m.write_image(filepath + os.sep + '{}_correlation_heatmap_qn'.format(counter) + '_tpm.pdf')
     my_logger.info("Heatmap for IP & IN is plotted here for the QN values {}".format(
-        filepath + os.sep + '{}_heatmap_qn'.format(counter) + '_tpm.html'))
+        filepath + os.sep + '{}_correlation_heatmap_qn'.format(counter) + '_tpm.html'))
 
     # create z-score clustermap
     counter = counter + 1
