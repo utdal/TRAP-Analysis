@@ -666,7 +666,7 @@ def trap_analysis(sample1_group1_IN: list, sample2_group1_IP: list,
     tpm_percentile_qn_IN_and_IP_dataframe_rev_de_filter.loc[
         (tpm_percentile_qn_IN_and_IP_dataframe_rev_de_filter['BC_{}_{}_IP'.format(group_list[0], group_list[1])].abs() >= bc_var) &
         (tpm_percentile_qn_IN_and_IP_dataframe_rev_de_filter['ssmd_ip_{}_{}'.format(group_list[1], group_list[0])].abs() >= ssmd_var) &
-        (tpm_percentile_qn_IN_and_IP_dataframe_rev_de_filter['Log2fc_{}_{}_IP'.format(group_list[1], group_list[0])].abs() >= log2fc_var), 'Gene Expression'] = 'Differentially Expressed Genes'
+        (tpm_percentile_qn_IN_and_IP_dataframe_rev_de_filter['Log2fc_{}_{}_IP'.format(group_list[1], group_list[0])].abs() >= np.log2(log2fc_var)), 'Gene Expression'] = 'Differentially Expressed Genes'
     tpm_percentile_qn_IN_and_IP_dataframe_rev_de_filter['Gene Expression'].fillna('Genes not Differentially Expressed', inplace=True)
     plotly_fig = px.scatter(tpm_percentile_qn_IN_and_IP_dataframe_rev_de_filter,
                             x='Log2fc_{}_{}_IP'.format(group_list[1], group_list[0]),
@@ -694,7 +694,7 @@ def trap_analysis(sample1_group1_IN: list, sample2_group1_IP: list,
     input_threshold_df.loc[
         (input_threshold_df['BC_{}_{}_IN'.format(group_list[0], group_list[1])].abs() >= bc_var) &
         (input_threshold_df['ssmd_in_{}_{}'.format(group_list[1], group_list[0])].abs() >= ssmd_var) &
-        (input_threshold_df['Log2fc_{}_{}_IN'.format(group_list[1], group_list[0])].abs() >= log2fc_var), 'Gene Expression IN'] = 'Differentially Expressed Genes'
+        (input_threshold_df['Log2fc_{}_{}_IN'.format(group_list[1], group_list[0])].abs() >= np.log2(log2fc_var)), 'Gene Expression IN'] = 'Differentially Expressed Genes'
     input_threshold_df['Gene Expression IN'].fillna('Genes not Differentially Expressed', inplace=True)
 
     plotly_fig = px.scatter(input_threshold_df, x='Log2fc_{}_{}_IN'.format(group_list[1], group_list[0]),
